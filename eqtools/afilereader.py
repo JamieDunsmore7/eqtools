@@ -142,7 +142,7 @@ class AFileReader(object):
             self._vertn = float(line[3])    # decay index at current centroid
 
             # read next mco2v values for rco2v, dco2v
-            nrows = self._mco2v/4
+            nrows = self._mco2v//4
             if self._mco2v % 4 != 0:
                 nrows += 1
 
@@ -163,7 +163,7 @@ class AFileReader(object):
             self._dco2v = np.array(self._dco2v)     # line-averaged density along vertical CO2 chords
 
             # read next mco2r values for rco2r, dco2r
-            nrows = self._mco2r/4
+            nrows = self._mco2r//4
             if self._mco2r % 4 != 0:
                 nrows += 1
 
@@ -283,7 +283,7 @@ class AFileReader(object):
             # read csilop, cmpr2
             # for god knows what reason, these are written as a single nsilop+magpri block.
             npts = nsilop+magpri
-            nrows = npts/4
+            nrows = npts//4
             if npts % 4 != 0:
                 nrows += 1
 
@@ -297,7 +297,7 @@ class AFileReader(object):
             self._cmpr2 = np.array(dat[nsilop+1:])      # calculated Bpol coil signals
 
             # read ccbrsp
-            nrows = nfcoil/4
+            nrows = nfcoil//4
             if nfcoil % 4 != 0:
                 nrows += 1
 
@@ -310,7 +310,7 @@ class AFileReader(object):
             self._ccbrsp = np.array(self._ccbrsp)       # calculated F-coil currents
 
             # read eccurt
-            nrows = nesum/4
+            nrows = nesum//4
             if nesum % 4 != 0:
                 nrows += 1
 
