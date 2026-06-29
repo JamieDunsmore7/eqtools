@@ -9553,13 +9553,14 @@ class Equilibrium(object):
                     self.getMagZ(length_unit='m')[idx] * numpy.ones(R_grid.shape),
                     self.getTimeBase()[idx]
                 )
+                psi_norm_on_grid = psi_norm_on_grid.ravel()
                 # Correct for the slight issues at the magnetic axis:
                 psi_norm_on_grid[0] = 0.0
                 # Find if it ever goes non-monotonic: psinorm is assumed to be
                 # strictly INCREASING from the magnetic axis out.
-                decr_idx, = numpy.where(
+                decr_idx = numpy.where(
                     (psi_norm_on_grid[1:] - psi_norm_on_grid[:-1]) < 0
-                )
+                )[0]
                 if len(decr_idx) > 0:
                     psi_norm_on_grid = psi_norm_on_grid[:decr_idx[0] + 1]
                     R_grid = R_grid[:decr_idx[0] + 1]
