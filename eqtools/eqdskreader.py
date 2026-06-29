@@ -220,7 +220,6 @@ class EqdskReader(Equilibrium):
 
             try:
                 timestring = line[-4]                       # (str) time index, with units (e.g. '875ms')
-                print(timestring)
             except ValueError:
                 timestring = None
 
@@ -228,7 +227,6 @@ class EqdskReader(Equilibrium):
             nw = int(line[-2])                              # width of flux grid (dim(R))
             nh = int(line[-1])                              # height of flux grid (dim(Z))
 
-            print(nw, nh)
             # extract time, units from timestring
             try:
                 time = re.findall(r'\d+', timestring)[0]
@@ -288,7 +286,7 @@ class EqdskReader(Equilibrium):
             # don't actually need anything from this line
 
             # start reading fpol, next nw inputs
-            nrows = nw/5
+            nrows = nw//5
             if nw % 5 != 0:     # catch truncated rows
                 nrows += 1
 
@@ -335,7 +333,7 @@ class EqdskReader(Equilibrium):
             # start by reading nw x nh points into 1D array,
             # then repack in column order into final array
             npts = nw*nh
-            nrows = npts/5
+            nrows = npts//5
             if npts % 5 != 0:
                 nrows += 1
 
@@ -349,7 +347,7 @@ class EqdskReader(Equilibrium):
             self._defaultUnits['_psiRZ'] = 'Wb/rad'
 
             # read q(psi) profile, nw points (same basis as fpol, pres, etc.)
-            nrows = nw/5
+            nrows = nw//5
             if nw % 5 != 0:
                 nrows += 1
 
@@ -369,7 +367,7 @@ class EqdskReader(Equilibrium):
             # next data reads as 2 x nbbbs array, then broken into
             # rbbbs, zbbbs (R,Z locations of LCFS)
             npts = 2*nbbbs
-            nrows = npts/5
+            nrows = npts//5
             if npts % 5 != 0:
                 nrows += 1
             bbbs = []
@@ -387,7 +385,7 @@ class EqdskReader(Equilibrium):
             # next data reads as 2 x limitr array, then broken into
             # xlim, ylim (locations of limiter)(?)
             npts = 2*limitr
-            nrows = npts/5
+            nrows = npts//5
             if npts % 5 != 0:
                 nrows += 1
             lim = []
@@ -412,7 +410,7 @@ class EqdskReader(Equilibrium):
 
                 # read kvtor data if present
                 if kvtor > 0:
-                    nrows = nw/5
+                    nrows = nw//5
                     if nw % 5 != 0:
                         nrows += 1
                     self._presw = []
@@ -435,7 +433,7 @@ class EqdskReader(Equilibrium):
 
                 # read ion mass density if present
                 if nmass > 0:
-                    nrows = nw/5
+                    nrows = nw//5
                     if nw % 5 != 0:
                         nrows += 1
                     self._dmion = []
@@ -449,7 +447,7 @@ class EqdskReader(Equilibrium):
                     self._dmion = numpy.atleast_2d(numpy.array([0]))
 
                 # read rhovn
-                nrows = nw/5
+                nrows = nw//5
                 if nw % 5 != 0:
                     nrows += 1
                 self._rhovn = []
