@@ -214,14 +214,13 @@ class EqdskReader(Equilibrium):
                 self._date = None
 
             try:
-                self._shot = int(re.split(r'\D', line[-5])[-1])   # (int) shot index
-            except ValueError:
+                shot_token = next((t for t in line if t.startswith('#')), None)
+                self._shot = int(re.sub(r'\D', '', shot_token)) if shot_token else None
+            except (ValueError, TypeError):
                 self._shot = None
 
-            try:
-                timestring = line[-4]                       # (str) time index, with units (e.g. '875ms')
-            except ValueError:
-                timestring = None
+            # find time token by pattern (e.g. '2001ms') — position varies by machine
+            timestring = next((t for t in line if re.match(r'^\d+\.?\d*(ms|s)$', t)), None)
 
             # imfit = int(line[-3])                           # not sure what this is supposed to be...
             nw = int(line[-2])                              # width of flux grid (dim(R))
