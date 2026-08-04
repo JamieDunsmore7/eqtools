@@ -25,7 +25,7 @@ from . import core
 
 try:
     import matplotlib.pyplot as plt
-    _has_plt = False
+    _has_plt = True
 except Exception:
     warnings.warn(
         "Matplotlib.pyplot module could not be loaded -- classes that use "
@@ -136,7 +136,7 @@ def gfile(
     rgrid2, zgrid2 = numpy.meshgrid(rgrid, zgrid)
     print(header)
 
-    gfiler = open(name, 'wb')
+    gfiler = open(name, 'w')
     gfiler.write(header)
 
     gfiler.write(_fmt([obj.getRGrid()[-1]-obj.getRGrid()[0],
